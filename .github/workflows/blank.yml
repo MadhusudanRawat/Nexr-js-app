@@ -38,16 +38,16 @@ jobs:
 
       - name: CDK Synth
         run: cdk synth
-        working-directory: .
+        working-directory: ./aws-cdk-lambda-function-example
               
       - name: CDK bootstrap
         run: cdk bootstrap
-        working-directory: .
+        working-directory: ./aws-cdk-lambda-function-example
 
       - name: CDK Deploy
         run: cdk deploy --require-approval never
-        working-directory: .
+        working-directory: ./aws-cdk-lambda-function-example
         
       - name: CDK Destroy
         run: cdk destroy --force
-        working-directory: .
+        working-directory: ./aws-cdk-lambda-function-example
