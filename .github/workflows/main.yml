@@ -23,9 +23,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
           aws-region: eu-central-1
-          role-to-assume: arn:aws:iam::398755355329:user/githubUser
-          role-session-name: samplerolesession
-
+          role-to-assume: arn:aws:iam::398755355329:user/guru
       - name: install npm
         run: 'sudo apt update -y && sudo apt install nodejs npm -y'
 
@@ -34,20 +32,20 @@ jobs:
 
       - name: Install Requirements 
         run: 'npm install'
-        working-directory: ./aws-cdk-lambda-function-example
+        working-directory: ./cdk-workshop
 
       - name: CDK Synth
         run: cdk synth
-        working-directory: ./aws-cdk-lambda-function-example
+        working-directory: ./cdk-workshop
               
       - name: CDK bootstrap
         run: cdk bootstrap
-        working-directory: ./aws-cdk-lambda-function-example
+        working-directory: ./cdk-workshop
 
       - name: CDK Deploy
         run: cdk deploy --require-approval never
-        working-directory: ./aws-cdk-lambda-function-example
+        working-directory: ./cdk-workshop
         
-      - name: CDK Destroy
-        run: cdk destroy --force
-        working-directory: ./aws-cdk-lambda-function-example
+      #- name: CDK Destroy
+       # run: cdk destroy --force
+       # working-directory: ./cdk-workshop
