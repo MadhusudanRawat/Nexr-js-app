@@ -20,22 +20,30 @@ jobs:
          if [[ "${{ github.ref_name }}" == "main" ]]; then
             echo "::set-output name=awsAccessKeyId::${{ secrets.AWS_ACCESS_KEY_ID }}"
             echo "::set-output name=awsSecretKey::${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}"
-        shell: bash
-      - name: Checkout
-        uses: actions/checkout@v2
+          shell: bash
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v2
         with:
-          aws-access-key-id: AKIAVZV5L3LA2YFGR77R
-          aws-secret-access-key: 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
+          node-version: "14"
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
           aws-region: eu-central-1
           role-to-assume: arn:aws:iam::398755355329:user/guru
       - name: install npm
         run: 'sudo apt update -y && sudo apt install nodejs npm -y'
 
-      - name: Install AWS CDK
-        run: 'sudo npm install -g aws-cdk' 
+      - name: Install CDK dependencies
+        working-directory: ./cdk
+        run: npm i -g aws-cdk && npm i
+
+      - name: Install lambdas
+        working-directory: ./cdk
 
       - name: Install Requirements 
         run: 'npm install'
