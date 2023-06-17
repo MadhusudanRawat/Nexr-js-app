@@ -25,10 +25,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}
+          aws-access-key-id: AKIAVZV5L3LA2YFGR77R
+          aws-secret-access-key: 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
           aws-region: eu-central-1
           role-to-assume: arn:aws:iam::398755355329:user/guru
       - name: install npm
