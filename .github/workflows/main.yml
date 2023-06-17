@@ -14,6 +14,13 @@ jobs:
   aws_cdk:
     runs-on: ubuntu-latest
     steps:
+      - name: Define Variables
+        id: define_variables
+        run: |
+         if [[ "${{ github.ref_name }}" == "main" ]]; then
+            echo "::set-output name=awsAccessKeyId::${{ secrets.AWS_ACCESS_KEY_ID }}"
+            echo "::set-output name=awsSecretKey::${{ secrets.AWS_SECRET_ACCESS_KEY_ID }}"
+        shell: bash
       - name: Checkout
         uses: actions/checkout@v2
 
